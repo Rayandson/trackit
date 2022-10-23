@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import styled from "styled-components"
 import { HabitsContext } from "../contexts/HabitsContext";
 import Footer from "./Footer";
-import Habit from "./Habit";
+import Habit from "./TodayHabit";
 import NavBar from "./NavBar";
 import { PictureContext } from "../contexts/PictureContext";
 
@@ -18,7 +18,7 @@ export default function TodayPage() {
             <ContainerNoHabs>
             <Header>
                 <h1>Segunda, 17/05</h1>
-                <Msg1>Você não possui hábitos para serem concluídos hoje. Vá para a sessão <span>hábitos</span> para gerenciar ou criar um novo hábito.</Msg1>
+                <Msg1>Você não possui hábitos para serem concluídos. Vá para a sessão <span>hábitos</span> para gerenciar ou criar um novo hábito.</Msg1>
             </Header>
             </ContainerNoHabs>
             <Footer />

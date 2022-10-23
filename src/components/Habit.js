@@ -1,70 +1,44 @@
 import styled from "styled-components"
+import Day from "./Day";
 
 
-export default function Habit() {
+export default function Habit({name, days}) {
+    const dayNames = ["D", "S", "T", "Q", "Q", "S", "S"];
     return(
         <HabitDiv>
-            <InfoDiv>
-                <h1>Ler 1 capítulo de livro</h1>
-                <div>
-                <p>Sequência atual: 3 dias</p>
-                <p>Seu recorde: 5 dias</p>
-                </div>
-            </InfoDiv>
-            <IconDiv>+</IconDiv>
-        </HabitDiv>
+                <HabitContainer>
+                <p>{name}</p>
+                <DaysContainer>
+                {dayNames.map((d, index) => <Day day={d} index={index} days={days} />)}
+                </DaysContainer>
+                </HabitContainer>
+            </HabitDiv>
     )
 }
 
 const HabitDiv = styled.div`
 width: 100%;
-height: 94px;
+height: 180px;
 background: #FFFFFF;
 border-radius: 5px;
-display: flex;
-justify-content: space-between;
+display: ${props => (props.hidden === true) ? "none" : "flex"};
+flex-direction: column;
+justify-content: space-around;
 align-items: center;
 padding: 0 11px;
+margin-top: 22px;
 `
-
-const InfoDiv = styled.div`
-width: auto;
-max-width: 70%;
-height: 69px;
-max-height: 90px;
+const HabitContainer = styled.div`
+width: 100%;
+height: 90px;
 display: flex;
+gap: 8px;
 flex-direction: column;
 justify-content: center;
-gap: 7px;
+ `
 
-    h1 {
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 20px;
-        color: #666666;
-    }
-
-    div {
-        display: flex;
-        flex-direction: column;
-
-        p {
-            font-family: 'Lexend Deca';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 12.976px;
-            color: #666666;
-        }
-    }
-`
-const IconDiv = styled.div`
-width: 69px;
-height: 69px;
+const DaysContainer = styled.div`
 display: flex;
-justify-content: center;
-align-items: center;
-background: #EBEBEB;
-border: 1px solid #E7E7E7;
-border-radius: 5px;
+justify-content: flex-start;
+gap: 4px;
 `

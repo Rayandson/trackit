@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled from "styled-components"
 import { HabitsContext } from "../contexts/HabitsContext";
 import Footer from "./Footer";
@@ -7,6 +7,8 @@ import { PictureContext } from "../contexts/PictureContext";
 import Day from "./Day";
 import axios from "axios";
 import { TokenContext } from "../contexts/TokenContext";
+import TodayHabit from "./TodayHabit";
+import Habit from "./Habit";
 
 export default function Habits() {
     const {habits, setHabits} = useContext(HabitsContext);
@@ -28,9 +30,21 @@ export default function Habits() {
 
     function createNewHabit() {
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {name: newHabitName, days: newHabitDays}, {headers: {Authorization: `Bearer ${token}`}})
-        .then((r) => console.log(r))
+        .then(() => listHabits)
         .catch((e) => console.log(e))
     }
+
+    function listHabits() {
+        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {headers: {Authorization: `Bearer ${token}`}})
+        .then((r) => setHabits(r.data))
+        .catch(erro => console.log(erro))  
+    }
+
+    useEffect(() => {
+        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {headers: {Authorization: `Bearer ${token}`}})
+        .then((r) => setHabits(r.data))
+        .catch(erro => console.log(erro))  
+    }, [])
 
     if(habits.length === 0) {
         return(
@@ -63,7 +77,7 @@ export default function Habits() {
             <>
             <NavBar picture={picture}/>
             <Container>
-            <p>Tem</p>
+            {habits.map((h) => <Habit name={h.name} days={h.days} />)}
             </Container>
             <Footer />
             </>
