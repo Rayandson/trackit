@@ -1,0 +1,12 @@
+.checkicon {
+    color: #FFFFFF;
+    font-size: 32px;
+}
+
+.trashIcon {
+    color: #666666;
+    font-size: 18px;
+    position: absolute;
+    right: 10px;
+    top: 11px;
+}

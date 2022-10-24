@@ -1,17 +1,56 @@
-import styled from "styled-components"
+import styled, { ThemeConsumer } from "styled-components"
+import { BsCheckLg } from "react-icons/bs";
+import "../style/icons.css"
+import axios from "axios";
+import { useState, useContext, useEffect } from "react";
+import { TokenContext } from "../contexts/TokenContext";
 
 
-export default function TodayHabit() {
+export default function TodayHabit({name, id, done, currentSequence, highestSequence, habitsDone, setHabitsDone, percent, setPercent, numHabits}) {
+
+    const [isDone, setIsDone] = useState(done)
+    const {token, setToken} = useContext(TokenContext)
+    
+
+    useEffect(() => {
+            setPercent(((habitsDone / numHabits) * 100).toFixed(0))
+    }, [])
+    
+    function setAsDone() {
+        if(isDone === false) {
+        setIsDone(true)
+        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, null, {headers: {Authorization: `Bearer ${token}`}})
+        .then((r) => console.log(r))
+        .catch((erro) => {
+             console.log(erro)
+            setIsDone(false)
+            })
+            setHabitsDone(habitsDone + 1)
+            setPercent((((habitsDone + 1) / numHabits) * 100).toFixed(0))
+        }
+        if(isDone === true) {
+            setIsDone(false)
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, null, {headers: {Authorization: `Bearer ${token}`}})
+            .then((r) => console.log(r))
+            .catch((erro) => {
+                console.log(erro)
+                setIsDone(true)
+            })
+            setHabitsDone(habitsDone - 1)
+            setPercent((((habitsDone - 1) / numHabits) * 100).toFixed(0))
+        }
+    }
+
     return(
         <HabitDiv>
             <InfoDiv>
-                <h1>Ler 1 capítulo de livro</h1>
+                <h1>{name}</h1>
                 <div>
-                <p>Sequência atual: 3 dias</p>
-                <p>Seu recorde: 5 dias</p>
+                <p>Sequência atual: {currentSequence} dias</p>
+                <p>Seu recorde: {highestSequence} dias</p>
                 </div>
             </InfoDiv>
-            <IconDiv>+</IconDiv>
+            <IconDiv isDone={isDone} onClick={setAsDone}><BsCheckLg className="checkicon"/></IconDiv>
         </HabitDiv>
     )
 }
@@ -64,7 +103,7 @@ height: 69px;
 display: flex;
 justify-content: center;
 align-items: center;
-background: #EBEBEB;
+background: ${props => (props.isDone === false) ? "#EBEBEB" : "#8FC549"};
 border: 1px solid #E7E7E7;
 border-radius: 5px;
 `

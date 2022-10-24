@@ -5,12 +5,12 @@ export default function Footer(){
     return(
         <FooterContainer>
             <Link to="/habitos" style={{textDecoration: 'none'}}><p>Hábitos</p></Link>
-            <Link to="/hoje" style={{paddingLeft: 13, textDecoration: 'none'}}>
+            <Link to="/hoje" style={{textDecoration: 'none'}}>
             <div>
                 <p>Hoje</p>
             </div>
             </Link>
-            <p>Histórico</p>
+            <Link to="/historico" style={{textDecoration: 'none'}}><p>Histórico</p></Link>
         </FooterContainer>
     )
 }
@@ -19,6 +19,7 @@ const FooterContainer = styled.div`
 width: 100%;
 height: 65px;
 position: fixed;
+z-index: 10;
 bottom: 0px;
 left: 0px;
 background: #FFFFFF;

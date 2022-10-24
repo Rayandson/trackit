@@ -1,8 +1,12 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Day(props) {
     const [active, setActive] = useState(false)
+
+    useEffect(() => {
+        setActive(false)
+    }, [props.cleanDays])
     
     function addDay() {
         let array = props.newHabitDays

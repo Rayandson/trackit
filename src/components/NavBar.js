@@ -14,6 +14,7 @@ const NavBarContainer = styled.div`
 width: 100%;
 height: 65px;
 position: fixed;
+z-index: 10;
 left: 0px;
 top: 0px;
 background: #126BA5;
