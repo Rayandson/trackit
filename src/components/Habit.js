@@ -3,24 +3,34 @@ import { BsTrash } from "react-icons/bs";
 import "../style/icons.css"
 import { useContext } from "react";
 import { TokenContext } from "../contexts/TokenContext";
+import { HabitsContext } from "../contexts/HabitsContext";
 import axios from "axios";
 
 
 export default function Habit({name, id, days}) {
     const dayNames = ["D", "S", "T", "Q", "Q", "S", "S"];
     const {token, setToken} = useContext(TokenContext)
+    const {habits, setHabits} = useContext(HabitsContext)
 
     function excluir() {
+        if(window.confirm("Deseja excluir ?") === true) {
+        let updatedHabs = habits.filter((h) => {
+            if(h.id !== id) {
+                return true
+            }
+        })
+        setHabits(updatedHabs)
         axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, {headers: {Authorization: `Bearer ${token}`}})
         .then((r) => console.log(r))
         .catch((erro) => console.log(erro))
     }
+}
 
     return(
         <HabitDiv>
-                <BsTrash className="trashIcon" onClick={excluir}/>
+                <BsTrash data-identifier="delete-habit-btn" className="trashIcon" onClick={excluir}/>
                 <HabitContainer>
-                <Title>{name}</Title>
+                <Title data-identifier="habit-name">{name}</Title>
                 <DaysContainer>
                 {dayNames.map((d, index) => <DayDiv index={index} days={days}>{d}</DayDiv>)}
                 </DaysContainer>

@@ -28,7 +28,7 @@ export default function Day(props) {
     }
 
     return(
-        <DayDiv active={active} onClick={addDay}>{props.day}</DayDiv>
+        <DayDiv data-identifier="week-day-btn" active={active} onClick={addDay}>{props.day}</DayDiv>
     )
 }
 

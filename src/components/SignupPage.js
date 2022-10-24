@@ -29,11 +29,11 @@ export default function SignupPage() {
             <Content>
             <img src={logo1}/>
             <form onSubmit={signUp}>
-            <input required type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)} value={email}/>
-            <input required type="password" placeholder="senha" onChange={(e) => setPassword(e.target.value)} value={password}/>
-            <input required placeholder="nome" onChange={(e) => setNome(e.target.value)} value={nome}/>
-            <input required placeholder="foto (URL)" onChange={(e) => setFoto(e.target.value)} value={foto}/>
-            <button type="submit">Cadastrar</button>
+            <input data-identifier="input-email" required type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)} value={email}/>
+            <input data-identifier="input-password" required type="password" placeholder="senha" onChange={(e) => setPassword(e.target.value)} value={password}/>
+            <input data-identifier="input-name" required placeholder="nome" onChange={(e) => setNome(e.target.value)} value={nome}/>
+            <input data-identifier="input-photo" required placeholder="foto (URL)" onChange={(e) => setFoto(e.target.value)} value={foto}/>
+            <button data-identifier="back-to-login-action" type="submit">Cadastrar</button>
             </form>
             <Link to="/"><p>Já tem uma conta ? Faça login!</p></Link>
             </Content>

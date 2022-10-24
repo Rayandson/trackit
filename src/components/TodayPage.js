@@ -126,7 +126,7 @@ const Msg1 = styled.p`
 
 const Container = styled.div`
 width: 100vw;
-height: calc(100vh - 130px);
+min-height: calc(100vh - 130px);
 margin-top: 65px;
 margin-bottom: 65px;
 background-color: #F2F2F2;
@@ -152,5 +152,6 @@ justify-content: center;
 align-items: center;
 gap: 10px;
 margin-top: 28px;
+margin-bottom: 35px;
 `
 

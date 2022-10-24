@@ -60,21 +60,21 @@ export default function Habits() {
             <ContainerNoHabs>
             <AddContainer>
                 <h1>Meus hábitos</h1>
-                <AddButton onClick={showIt}>+</AddButton>
+                <AddButton data-identifier="create-habit-btn" onClick={showIt}>+</AddButton>
             </AddContainer>
             <NewHabitDiv hidden={hidden}>
                 <NewHabitContainer>
-                <input placeholder="nome do hábito" onChange={(e) => setNewHabitName(e.target.value)} value={newHabitName}/>
+                <input data-identifier="input-habit-name" placeholder="nome do hábito" onChange={(e) => setNewHabitName(e.target.value)} value={newHabitName}/>
                 <DaysContainer>
                 {days.map((d, index) => <Day day={d} index={index} newHabitDays={newHabitDays} setNewHabitDays={setNewHabitDays} />)}
                 </DaysContainer>
                 </NewHabitContainer>
                 <SaveDiv>
-                    <p onClick={hideIt}>Cancelar</p>
+                    <p data-identifier="cancel-habit-create-btn" onClick={hideIt}>Cancelar</p>
                     <button onClick={createNewHabit} >Salvar</button>
                 </SaveDiv>
             </NewHabitDiv>
-            <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+            <p data-identifier="no-habit-message">Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </ContainerNoHabs>
             <Footer/>
             </>
@@ -86,18 +86,18 @@ export default function Habits() {
             <Container>
             <AddContainer>
                 <h1>Meus hábitos</h1>
-                <AddButton onClick={showIt}>+</AddButton>
+                <AddButton data-identifier="create-habit-btn" onClick={showIt}>+</AddButton>
             </AddContainer>
             <NewHabitDiv hidden={hidden}>
                 <NewHabitContainer>
-                <input placeholder="nome do hábito" onChange={(e) => setNewHabitName(e.target.value)} value={newHabitName}/>
+                <input data-identifier="input-habit-name" placeholder="nome do hábito" onChange={(e) => setNewHabitName(e.target.value)} value={newHabitName}/>
                 <DaysContainer>
                 {days.map((d, index) => <Day day={d} index={index} newHabitDays={newHabitDays} setNewHabitDays={setNewHabitDays} cleanDays={cleanDays}/>)}
                 </DaysContainer>
                 </NewHabitContainer>
                 <SaveDiv>
-                    <p onClick={hideIt}>Cancelar</p>
-                    <button onClick={createNewHabit} >Salvar</button>
+                    <p data-identifier="cancel-habit-create-btn" onClick={hideIt}>Cancelar</p>
+                    <button data-identifier="save-habit-create-btn" onClick={createNewHabit} >Salvar</button>
                 </SaveDiv>
             </NewHabitDiv>
             <HabitContainer>
