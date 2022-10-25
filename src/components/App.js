@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import styled from "styled-components";
 import { HabitsContextProvider } from "../contexts/HabitsContext";
+import { PercentageContextProvider } from "../contexts/PercentageContext";
 import { PictureContextProvider } from "../contexts/PictureContext";
 import { TokenContextProvider } from "../contexts/TokenContext";
 import GlobalStyle from "./GlobalStyle";
@@ -18,6 +19,7 @@ export default function App() {
     <HabitsContextProvider>
     <TokenContextProvider>
     <PictureContextProvider>
+    <PercentageContextProvider>
     <Routes>
       <Route path="/" element={<LoginPage/>} />
       <Route path="/cadastro" element={<SignupPage />} />
@@ -25,6 +27,7 @@ export default function App() {
       <Route path="/hoje" element={<Today />} />
       <Route path="/historico" element={<History />} />
     </Routes>
+    </PercentageContextProvider>
     </PictureContextProvider>
     </TokenContextProvider>
     </HabitsContextProvider>

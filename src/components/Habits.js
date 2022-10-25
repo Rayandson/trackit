@@ -9,6 +9,7 @@ import axios from "axios";
 import { TokenContext } from "../contexts/TokenContext";
 import TodayHabit from "./TodayHabit";
 import Habit from "./Habit";
+import { PercentageContext } from "../contexts/PercentageContext";
 
 export default function Habits() {
     const {habits, setHabits} = useContext(HabitsContext);
@@ -19,6 +20,7 @@ export default function Habits() {
     const [newHabitName, setNewHabitName] = useState("")
     const [newHabitDays, setNewHabitDays] = useState([])
     const [cleanDays, setCleanDays] = useState(false);
+    const {percent, setPercent} = useContext(PercentageContext)
 
     function showIt() {
         setHidden(false);
@@ -76,7 +78,7 @@ export default function Habits() {
             </NewHabitDiv>
             <p data-identifier="no-habit-message">Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </ContainerNoHabs>
-            <Footer/>
+            <Footer percent={percent}/>
             </>
         )
     } else {
@@ -104,7 +106,7 @@ export default function Habits() {
             {habits.map((h) => <Habit name={h.name} id={h.id} days={h.days} />)}
             </HabitContainer>
             </Container>
-            <Footer />
+            <Footer percent={percent}/>
             </>
         )
     }

@@ -43,14 +43,14 @@ export default function TodayHabit({name, id, done, currentSequence, highestSequ
 
     return(
         <HabitDiv>
-            <InfoDiv>
+            <InfoDiv data-identifier="today-infos">
                 <h1>{name}</h1>
                 <div>
                 <p>Sequência atual: {currentSequence} dias</p>
                 <p>Seu recorde: {highestSequence} dias</p>
                 </div>
             </InfoDiv>
-            <IconDiv isDone={isDone} onClick={setAsDone}><BsCheckLg className="checkicon"/></IconDiv>
+            <IconDiv data-identifier="done-habit-btn" isDone={isDone} onClick={setAsDone}><BsCheckLg className="checkicon"/></IconDiv>
         </HabitDiv>
     )
 }

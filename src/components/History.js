@@ -3,9 +3,11 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import { PictureContext } from "../contexts/PictureContext";
 import { useContext } from "react";
+import { PercentageContext } from "../contexts/PercentageContext";
 
 export default function History() {
     const {picture} = useContext(PictureContext)
+    const {percent, setPercent} = useContext(PercentageContext)
     return(
         <>
         <NavBar picture={picture}/>
@@ -15,7 +17,7 @@ export default function History() {
             <Msg>Em breve você poderá ver o histórico dos seus hábitos aqui!</Msg>
         </Header>
         </Container>
-        <Footer />
+        <Footer percent={percent}/>
         </>
     )
 }

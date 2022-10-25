@@ -8,6 +8,7 @@ import NavBar from "./NavBar";
 import { PictureContext } from "../contexts/PictureContext";
 import axios from "axios";
 import { TokenContext } from "../contexts/TokenContext";
+import { PercentageContext } from "../contexts/PercentageContext";
 
 export default function TodayPage() {
     const {habits, setHabits} = useContext(HabitsContext);
@@ -16,7 +17,8 @@ export default function TodayPage() {
     const [todayHabits, setTodayHabits] = useState([])
     const [numHabits, setNumHabits] = useState(0)
     const [habitsDone, setHabitsDone] = useState(0) 
-    const [percent, setPercent] = useState(0)
+    const {percent, setPercent} = useContext(PercentageContext)
+   
     let now = new Date;
     let dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 
@@ -41,11 +43,11 @@ export default function TodayPage() {
             <NavBar picture={picture}/>
             <ContainerNoHabs>
             <Header>
-            <h1>{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
+            <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
                 <Msg1>Você não possui hábitos para serem concluídos. Vá para a sessão <span>hábitos</span> para gerenciar ou criar um novo hábito.</Msg1>
             </Header>
             </ContainerNoHabs>
-            <Footer />
+            <Footer percent={percent}/>
             </>
         )
     } else if (percent === 0) {
@@ -54,14 +56,14 @@ export default function TodayPage() {
             <NavBar picture={picture}/>
             <Container>
             <Header>
-            <h1>{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
-                <Msg2>Nenhum hábito concluído ainda.</Msg2>
+            <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
+                <Msg2 data-identifier="today-infos">Nenhum hábito concluído ainda.</Msg2>
             </Header>
             <HabitsContainer>
             {todayHabits.map((h) => <TodayHabit name={h.name} id={h.id} done={h.done} currentSequence={h.currentSequence} highestSequence={h.highestSequence} habitsDone={habitsDone} setHabitsDone={setHabitsDone} percent={percent} setPercent={setPercent} numHabits={numHabits}/>)}
             </HabitsContainer>
             </Container>
-            <Footer />
+            <Footer percent={percent}/>
             </>
         )
     } 
@@ -71,14 +73,14 @@ export default function TodayPage() {
             <NavBar picture={picture}/>
             <Container>
             <Header>
-                <h1>{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
-                <Msg2>{percent}% dos hábitos concluídos</Msg2>
+                <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
+                <Msg2 data-identifier="today-infos">{percent}% dos hábitos concluídos</Msg2>
             </Header>
             <HabitsContainer>
             {todayHabits.map((h) => <TodayHabit name={h.name} id={h.id} done={h.done} currentSequence={h.currentSequence} highestSequence={h.highestSequence} habitsDone={habitsDone} setHabitsDone={setHabitsDone} percent={percent} setPercent={setPercent} numHabits={numHabits}/>)}
             </HabitsContainer>
             </Container>
-            <Footer />
+            <Footer percent={percent}/>
             </>
         )
     }

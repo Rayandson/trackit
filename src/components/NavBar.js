@@ -5,7 +5,7 @@ export default function NavBar({picture}){
     return(
         <NavBarContainer>
             <Link to="/" style={{textDecoration: 'none'}}><StyledLogo>Trackit</StyledLogo></Link>
-            <UserImg src={picture} />
+            <UserImg data-identifier="avatar" src={picture} />
         </NavBarContainer>
     )
 }
