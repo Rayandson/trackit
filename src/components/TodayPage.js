@@ -9,17 +9,18 @@ import { PictureContext } from "../contexts/PictureContext";
 import axios from "axios";
 import { TokenContext } from "../contexts/TokenContext";
 import { PercentageContext } from "../contexts/PercentageContext";
+import { FallingLines } from  'react-loader-spinner'
 
 export default function TodayPage() {
     const {habits, setHabits} = useContext(HabitsContext);
     const {picture, setPicture} = useContext(PictureContext);
     const {token, setToken} = useContext(TokenContext);
-    const [todayHabits, setTodayHabits] = useState([])
+    const [todayHabits, setTodayHabits] = useState(null)
     const [numHabits, setNumHabits] = useState(0)
     const [habitsDone, setHabitsDone] = useState(0) 
     const {percent, setPercent} = useContext(PercentageContext)
    
-    let now = new Date;
+    let now = new Date();
     let dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 
     useEffect(() => {
@@ -36,6 +37,17 @@ export default function TodayPage() {
             setTodayHabits(r.data)})
         .catch((erro) => console.log(erro))
     }, [])
+
+    if(todayHabits === null) {
+        return(
+            <>
+            <NavBar picture={picture}/>
+            <SpinnerContainer>
+            <FallingLines width = "75" color="#4fa94d" visible={true} ariaLabel='falling-lines-loading' />
+            </SpinnerContainer>
+            </>
+        )
+    }
   
     if(todayHabits.length === 0) {
         return(
@@ -43,7 +55,7 @@ export default function TodayPage() {
             <NavBar picture={picture}/>
             <ContainerNoHabs>
             <Header>
-            <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
+            <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/{now.getMonth() + 1}</h1>
                 <Msg1>Você não possui hábitos para serem concluídos. Vá para a sessão <span>hábitos</span> para gerenciar ou criar um novo hábito.</Msg1>
             </Header>
             </ContainerNoHabs>
@@ -56,7 +68,7 @@ export default function TodayPage() {
             <NavBar picture={picture}/>
             <Container>
             <Header>
-            <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
+            <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/{now.getMonth() + 1}</h1>
                 <Msg2 data-identifier="today-infos">Nenhum hábito concluído ainda.</Msg2>
             </Header>
             <HabitsContainer>
@@ -73,7 +85,7 @@ export default function TodayPage() {
             <NavBar picture={picture}/>
             <Container>
             <Header>
-                <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/0{now.getMonth()}</h1>
+                <h1 data-identifier="today-infos">{dias[now.getDay()]}, {now.getDate()}/{now.getMonth() + 1}</h1>
                 <Msg2 data-identifier="today-infos">{percent}% dos hábitos concluídos</Msg2>
             </Header>
             <HabitsContainer>
@@ -98,6 +110,18 @@ flex-direction: column;
 padding: 0 17px;
 box-sizing: border-box;
 `;
+
+const SpinnerContainer = styled.div`
+width: 100vw;
+max-width: 100vw;
+height: calc(100vh - 130px);
+margin-top: 65px;
+margin-bottom: 65px;
+background-color: #F2F2F2;
+display: flex;
+justify-content: center;
+align-items: center;
+`
 
 const Header = styled.div`
     width: 100%;

@@ -10,6 +10,7 @@ import { TokenContext } from "../contexts/TokenContext";
 import TodayHabit from "./TodayHabit";
 import Habit from "./Habit";
 import { PercentageContext } from "../contexts/PercentageContext";
+import { FallingLines } from  'react-loader-spinner'
 
 export default function Habits() {
     const {habits, setHabits} = useContext(HabitsContext);
@@ -54,6 +55,17 @@ export default function Habits() {
         .then((r) => setHabits(r.data))
         .catch(erro => console.log(erro))  
     }, [])
+
+    if(habits === null) {
+        return(
+            <>
+            <NavBar picture={picture}/>
+            <SpinnerContainer>
+            <FallingLines width = "75" color="#4fa94d" visible={true} ariaLabel='falling-lines-loading' />
+            </SpinnerContainer>
+            </>
+        )
+    }
 
     if(habits.length === 0) {
         return(
@@ -131,6 +143,18 @@ box-sizing: border-box;
     margin-top: 29px;
 }
 `;
+
+const SpinnerContainer = styled.div`
+width: 100vw;
+max-width: 100vw;
+height: calc(100vh - 130px);
+margin-top: 65px;
+margin-bottom: 65px;
+background-color: #F2F2F2;
+display: flex;
+justify-content: center;
+align-items: center;
+`
 
 const AddContainer = styled.div`
     width: 100%;
